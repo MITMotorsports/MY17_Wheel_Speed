@@ -4,8 +4,8 @@
 
 // Pins 2 and 3 are INT0 and INT1 (respectively) for 328p
 // Pins 21 and 20 are INT0 and INT1 (respectively) for 2560
-const int STARBOARD_ENCODER_PIN = 21;
-const int PORT_ENCODER_PIN = 20;
+const int STARBOARD_ENCODER_PIN = 2;
+const int PORT_ENCODER_PIN = 3;
 
 volatile unsigned int starboardClicks = 0;
 volatile unsigned int portClicks = 0;
