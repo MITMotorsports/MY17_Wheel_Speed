@@ -33,8 +33,8 @@ USER_LIB_PATH     :=  $(realpath $(PROJECT_DIR)/lib)
 # For 2560:
 # 	BOARD_TAG = mega
 # 	BOARD_SUB = atmega2560
-BOARD_TAG         = mega
-BOARD_SUB         = atmega2560
+BOARD_TAG         = pro
+BOARD_SUB         = 16MHzatmega328
 
 ### MONITOR_BAUDRATE
 ### It must be set to Serial baudrate value you are using.
