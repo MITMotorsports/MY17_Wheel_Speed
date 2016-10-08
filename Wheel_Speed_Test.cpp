@@ -22,11 +22,6 @@ void logPortEncoderClick() {
   Serial.println(portClicks);
 }
 
-void resetClicksAndTimer(const unsigned long curr) {
-  starboardClicks = 0;
-  portClicks = 0;
-}
-
 // Implementation
 void setup() {
   Serial.begin(115200);
