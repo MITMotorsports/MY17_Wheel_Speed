@@ -27,25 +27,27 @@ void port_click()
 //Will run at 8MHz/256/1024 so ~30Hz
 //also am only pretty sure of 8MHz, if it's in fact 16 just some constant changing.
 
-//timer1 overflows with a freq. of 8MHz/65536/1024 so ~ 1.9 seconds
-//timer1 is at 125,000 Hz so one unit is 8*10^-6
+//timer1 is at 125,000 Hz (8 MHz / 64) so one unit is 8*10^-6
 //one minute is 7,500,000 timer units
+//8 MHz / 64 * 60 = MAGIC because that's the number of timer clicks per minute
 #define MAGIC 7500000
 ISR(TIMER2_OVF_vect)
 {
 	//allow this interrupt to be interrupted
 	sei();
+	//make it rarer that it requres more logic to handle
 	TCNT1 = 0x0000;
-	int sboard_delta = sboard_curr - sboard_old;
-	int port_delta = port_curr - port_old;
+	//using longs is safer because we need signed and the ability to interpret > 16 bits
+	long sboard_delta = sboard_curr - sboard_old;
+	long port_delta = port_curr - port_old;
 	//make sure that it's the absolute difference regardless of overflows
 	//assuming 16bit integers. I'm pretty sure that's what this is.
-	sboard_delta = sboard_delta < 0 ? sboard_delta : (sboard_curr - (sboard_old - 0xFFFF));
-	port_delta = port_delta < 0 ? port_delta : (port_curr - (port_old - 0xFFFF));
+	sboard_delta = sboard_delta > 0 ? sboard_delta : (sboard_curr - (sboard_old - UINT_MAX));
+	port_delta = port_delta > 0 ? port_delta : (port_curr - (port_old - UINT_MAX));
 	//converts clicks into RPM
 	//proper math is that one click per tick times MAGIC (7,500,000) / teeth (22) will net RPM.
-	int sboard_rpm = MAGIC / sboard_delta / 22;
-	int port_rpm = MAGIC / port_delta / 22;
+	unsigned int sboard_rpm = MAGIC / sboard_delta / 22;
+	unsigned int port_rpm = MAGIC / port_delta / 22;
 
 	Serial.print("port rpm:");
 	Serial.println(port_rpm);
