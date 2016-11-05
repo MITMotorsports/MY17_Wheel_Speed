@@ -38,6 +38,8 @@ ISR(TIMER2_OVF_vect)
 
 	uint16_t local_sboard_curr = sboard_curr;
 	uint16_t local_port_curr = port_curr;
+	uint16_t local_sboard_old = sboard_old;
+	uint16_t local_port_old = port_old;
 	//allow this interrupt to be interrupted
 	sei();
 	//make it rarer that it requres more logic to handle
