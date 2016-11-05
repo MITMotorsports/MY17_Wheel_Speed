@@ -34,7 +34,7 @@ ISR(TIMER2_OVF_vect)
 	//8 MHz / 64 * 60 = MAGIC because that's the number of timer clicks per minute
 	#define MAGIC 7500000
 	//22 teeth on the wheel, 22 clicks per rotation, 1 semirotation is 1/22 rotation
-	#define TEETH 22
+	#define TEETH 23
 
 	uint16_t local_sboard_curr = sboard_curr;
 	uint16_t local_port_curr = port_curr;

@@ -1,2 +1,4 @@
 Handle when there isn't a click in between transmissions
 	Maybe do the exponentially weighted average - take the number of clicks and the further away from being current it is, weight it less
+
+
